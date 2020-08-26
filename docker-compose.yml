@@ -1,0 +1,19 @@
+version: "3"
+services:
+  python:
+    build:
+      context: .
+      dockerfile: dockerfile/docker_python.conf
+    container_name: chat_server
+    environment:
+      - "PYTHONUNBUFFERED=1"
+    volumes:
+        - ./code:/code
+        - sock:/sock
+
+    restart: always
+    command: bash -c "python3 /code/server/server.py"
+    ports:
+    - 1234:1234
+volumes:
+  sock:
